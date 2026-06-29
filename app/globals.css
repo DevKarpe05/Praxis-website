@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+:root {
+  /* ---- Praxis design tokens ---- */
+  --void: #05070d;
+  --void2: #080c16;
+  --steel: #1a2436;
+  --steel-lit: #2c3b56;
+  --ink-dim: #5e6f8c;
+  --ink: #9fb1cd;
+  --ink-bright: #dce6f5;
+  --amber: #ff8a2b;
+  --amber-hot: #ffd27a;
+  --amber-deep: #c2521a;
+  --line: rgba(120, 140, 175, 0.14);
+}
+
+/* Expose tokens + next/font families to Tailwind v4 utilities */
+@theme inline {
+  --color-void: var(--void);
+  --color-void2: var(--void2);
+  --color-steel: var(--steel);
+  --color-steel-lit: var(--steel-lit);
+  --color-ink-dim: var(--ink-dim);
+  --color-ink: var(--ink);
+  --color-ink-bright: var(--ink-bright);
+  --color-amber: var(--amber);
+  --color-amber-hot: var(--amber-hot);
+  --color-amber-deep: var(--amber-deep);
+  --color-line: var(--line);
+
+  --font-display: var(--font-archivo);
+  --font-mono: var(--font-plex-mono);
+  --font-body: var(--font-inter);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--void);
+}
+
+body {
+  background: var(--void);
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--void);
+}
+
+/* Visible keyboard focus, hidden for pointer users */
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.font-display {
+  font-family: var(--font-archivo), system-ui, sans-serif;
+}
+.font-mono {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+}
+.font-body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+/* Mono eyebrow / label treatment */
+.label-mono {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.6875rem;
+  color: var(--ink-dim);
+}
+
+/* ---- Reveal animation primitives ---- */
+@keyframes praxis-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes praxis-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes praxis-blink {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  61%,
+  100% {
+    opacity: 0.18;
+  }
+}
+
+@keyframes praxis-scroll-cue {
+  0% {
+    transform: translateY(0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.2;
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+.reveal-on {
+  animation: praxis-rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.live-dot {
+  animation: praxis-blink 1.6s steps(1, end) infinite;
+}
+
+.scroll-cue-dot {
+  animation: praxis-scroll-cue 1.8s ease-in-out infinite;
+}
+
+/* In-view reveal for scroll sections */
+.in-view-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.in-view-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Accessibility helpers ---- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-focusable-group {
+  position: absolute;
+  left: 1rem;
+  bottom: 6.5rem;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Visually hidden until keyboard-focused, then revealed with a focus ring. */
+.sr-focusable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.sr-focusable:focus-visible {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  clip: auto;
+  overflow: visible;
+  white-space: normal;
+  max-width: 18rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--steel);
+  color: var(--ink-bright);
+  border: 1px solid var(--amber);
+  border-radius: 4px;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal,
+  .in-view-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
