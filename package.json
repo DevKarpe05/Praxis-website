@@ -3,13 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "node scripts/gen-land.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/gen-land.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "gen:land": "node scripts/gen-land.mjs"
+    "lint": "next lint"
   },
   "dependencies": {
     "next": "15.1.6",

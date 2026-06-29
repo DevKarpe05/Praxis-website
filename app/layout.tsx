@@ -1,35 +1,37 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, IBM_Plex_Mono, Inter } from "next/font/google";
+import { Space_Grotesk, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const archivo = Archivo({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-archivo",
-  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-space-grotesk",
+  weight: ["400", "500", "600", "700"],
 });
 
-const plexMono = IBM_Plex_Mono({
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-plex-mono",
+  variable: "--font-instrument-serif",
+  weight: "400",
+  style: ["normal", "italic"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jetbrains-mono",
   weight: ["400", "500", "600"],
 });
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
-
 export const metadata: Metadata = {
-  title: "Praxis — Industrial access for physical AI",
+  title: "Praxis — Every room the internet can't see",
   description:
-    "Praxis collects egocentric multimodal data inside live industrial operations across four continents for frontier AI labs.",
+    "Praxis operates inside live industrial floors across five continents — robots doing the work, and the manipulation data those floors produce flowing to the labs that need it.",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#05070d",
+  themeColor: "#14130f",
   width: "device-width",
   initialScale: 1,
 };
@@ -42,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${archivo.variable} ${plexMono.variable} ${inter.variable}`}
+        className={`${spaceGrotesk.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
       >
         {children}
       </body>

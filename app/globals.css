@@ -1,71 +1,130 @@
 @import "tailwindcss";
 
+/* ============================================================
+   PRAXIS — Colors & Type tokens (warm, near-monochrome canvas)
+   ============================================================ */
 :root {
-  /* ---- Praxis design tokens ---- */
-  --void: #05070d;
-  --void2: #080c16;
-  --steel: #1a2436;
-  --steel-lit: #2c3b56;
-  --ink-dim: #5e6f8c;
-  --ink: #9fb1cd;
-  --ink-bright: #dce6f5;
-  --amber: #ff8a2b;
-  --amber-hot: #ffd27a;
-  --amber-deep: #c2521a;
-  --line: rgba(120, 140, 175, 0.14);
+  /* ---------- CORE PALETTE ---------- */
+  --bone-50: #f6f2ea; /* default canvas */
+  --bone-100: #efe9dd;
+  --bone-200: #e4ddcd;
+  --bone-300: #cfc6b2;
+
+  --ink-900: #14130f; /* primary text — warm near-black */
+  --ink-800: #1f1d17;
+  --ink-700: #2e2b22;
+  --ink-600: #45412f;
+  --ink-500: #6b6650;
+  --ink-400: #908a70;
+  --ink-300: #b5ae92;
+
+  /* violet — the marketing accent used across the mosaic hero */
+  --accent-700: #5b21b6;
+  --accent-600: #6d28d9;
+  --accent-500: #7c3aed; /* PRAXIS VIOLET — primary accent */
+  --accent-300: #c9a8f0;
+  --accent-50: #f3ecfd;
+
+  /* industrial orange — kept as a secondary signal */
+  --flare-500: #e04a0b;
+
+  --signal-500: #14a4bc; /* technical cyan — live data / streams */
+  --signal-50: #e5f6fa;
+
+  /* ---------- SURFACE / FOREGROUND ---------- */
+  --bg: var(--bone-50);
+  --bg-elev: #fbf8f2;
+  --bg-inset: var(--bone-100);
+  --bg-ink: var(--ink-900);
+  --bg-ink-elev: #1c1a14;
+
+  --fg1: var(--ink-900);
+  --fg2: var(--ink-700);
+  --fg3: var(--ink-500);
+  --fg4: var(--ink-400);
+  --fg-on-ink: var(--bone-50);
+  --fg-on-ink-2: #b8b19a;
+
+  --accent: var(--accent-500);
+  --accent-hover: var(--accent-600);
+
+  /* ---------- BORDERS ---------- */
+  --rule-1: rgba(20, 19, 15, 0.1);
+  --rule-2: rgba(20, 19, 15, 0.2);
+  --rule-3: rgba(20, 19, 15, 0.4);
+  --rule-ink: rgba(246, 242, 234, 0.16);
+
+  /* ---------- TYPE FAMILIES ---------- */
+  --font-sans: var(--font-space-grotesk), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo,
+    monospace;
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+
+  /* ---------- GRID MOTIF ---------- */
+  --grid-line: rgba(20, 19, 15, 0.05);
+  --grid-line-strong: rgba(20, 19, 15, 0.1);
 }
 
-/* Expose tokens + next/font families to Tailwind v4 utilities */
-@theme inline {
-  --color-void: var(--void);
-  --color-void2: var(--void2);
-  --color-steel: var(--steel);
-  --color-steel-lit: var(--steel-lit);
-  --color-ink-dim: var(--ink-dim);
-  --color-ink: var(--ink);
-  --color-ink-bright: var(--ink-bright);
-  --color-amber: var(--amber);
-  --color-amber-hot: var(--amber-hot);
-  --color-amber-deep: var(--amber-deep);
-  --color-line: var(--line);
+/* Dark "ink" control surface — used for the hero and contact band. */
+.surface-ink {
+  --bg: var(--ink-900);
+  --bg-elev: var(--bg-ink-elev);
+  --bg-inset: #0e0d0a;
+  --fg1: var(--bone-50);
+  --fg2: #c8c2ab;
+  --fg3: #908a70;
+  --fg4: #6b6650;
+  --rule-1: rgba(246, 242, 234, 0.1);
+  --rule-2: rgba(246, 242, 234, 0.18);
+  --rule-3: rgba(246, 242, 234, 0.32);
+  --grid-line: rgba(246, 242, 234, 0.06);
+  --grid-line-strong: rgba(246, 242, 234, 0.12);
+  color: var(--fg1);
+  background: var(--bg);
+}
 
-  --font-display: var(--font-archivo);
-  --font-mono: var(--font-plex-mono);
-  --font-body: var(--font-inter);
+@theme inline {
+  --color-bone: var(--bone-50);
+  --color-ink: var(--ink-900);
+  --color-accent: var(--accent-500);
+  --color-accent-hover: var(--accent-600);
+  --font-sans: var(--font-space-grotesk);
+  --font-serif: var(--font-instrument-serif);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 * {
   box-sizing: border-box;
 }
-
 html,
 body {
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
-
 html {
   scroll-behavior: smooth;
-  background: var(--void);
+  background: var(--ink-900);
 }
-
 body {
-  background: var(--void);
-  color: var(--ink);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg1);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.45;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
-
-::selection {
-  background: var(--amber);
-  color: var(--void);
+a {
+  text-decoration: none;
+  color: inherit;
 }
-
-/* Visible keyboard focus, hidden for pointer users */
+::selection {
+  background: var(--accent-500);
+  color: var(--bone-50);
+}
 :focus-visible {
-  outline: 2px solid var(--amber);
+  outline: 2px solid var(--accent-500);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -73,151 +132,100 @@ body {
   outline: none;
 }
 
-.font-display {
-  font-family: var(--font-archivo), system-ui, sans-serif;
+/* ---------- Type utilities ---------- */
+.font-sans {
+  font-family: var(--font-sans);
+}
+.font-serif {
+  font-family: var(--font-serif);
 }
 .font-mono {
-  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-family: var(--font-mono);
 }
-.font-body {
-  font-family: var(--font-inter), system-ui, sans-serif;
-}
-
-/* Mono eyebrow / label treatment */
-.label-mono {
-  font-family: var(--font-plex-mono), ui-monospace, monospace;
+.t-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-size: 0.6875rem;
-  color: var(--ink-dim);
+  color: var(--fg3);
+}
+.t-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
 }
 
-/* ---- Reveal animation primitives ---- */
+/* ---------- Motifs ---------- */
+.bg-grid {
+  background-image: linear-gradient(
+      to right,
+      var(--grid-line) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(0, 0, 0, 0.18) 3px,
+    rgba(0, 0, 0, 0.18) 4px
+  );
+}
+
+/* ---------- Animations ---------- */
+@keyframes praxis-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes praxis-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.22;
+  }
+}
 @keyframes praxis-rise {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
-@keyframes praxis-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.blink {
+  animation: praxis-blink 1.2s steps(1) infinite;
 }
-
-@keyframes praxis-blink {
-  0%,
-  60% {
-    opacity: 1;
-  }
-  61%,
-  100% {
-    opacity: 0.18;
-  }
-}
-
-@keyframes praxis-scroll-cue {
-  0% {
-    transform: translateY(0);
-    opacity: 0.2;
-  }
-  50% {
-    transform: translateY(6px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 0.2;
-  }
-}
-
 .reveal {
   opacity: 0;
 }
 .reveal-on {
-  animation: praxis-rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: praxis-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
 }
 
-.live-dot {
-  animation: praxis-blink 1.6s steps(1, end) infinite;
-}
-
-.scroll-cue-dot {
-  animation: praxis-scroll-cue 1.8s ease-in-out infinite;
-}
-
-/* In-view reveal for scroll sections */
 .in-view-reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .in-view-reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* ---- Accessibility helpers ---- */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.sr-focusable-group {
-  position: absolute;
-  left: 1rem;
-  bottom: 6.5rem;
-  z-index: 30;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-/* Visually hidden until keyboard-focused, then revealed with a focus ring. */
-.sr-focusable {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-.sr-focusable:focus-visible {
-  position: static;
-  width: auto;
-  height: auto;
-  margin: 0;
-  clip: auto;
-  overflow: visible;
-  white-space: normal;
-  max-width: 18rem;
-  padding: 0.5rem 0.75rem;
-  background: var(--steel);
-  color: var(--ink-bright);
-  border: 1px solid var(--amber);
-  border-radius: 4px;
-  font-family: var(--font-plex-mono), ui-monospace, monospace;
-  font-size: 0.7rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
