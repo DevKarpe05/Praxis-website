@@ -32,6 +32,7 @@ interface Tween {
 
 const AUTO_SPEED = 0.055; // radians / second
 const IDLE_RESUME_MS = 2600;
+const HIT_RADIUS = 38; // px — click target around each node
 
 export default function Globe({
   nodes,
@@ -198,7 +199,10 @@ export default function Globe({
         const s = nodeScreen(n);
         if (s.z <= 0) continue;
         const d = Math.hypot(s.x - px, s.y - py);
-        if (d < 22 && (!best || d < best.d)) best = { idx: n.index, d };
+        // Generous radius: covers the whole visible amber glow (not just the
+        // bright core) and is touch-friendly. Nodes are sparse, so there's no
+        // ambiguity from overlap.
+        if (d < HIT_RADIUS && (!best || d < best.d)) best = { idx: n.index, d };
       }
       if (best) onSelectRef.current(best.idx);
     };
