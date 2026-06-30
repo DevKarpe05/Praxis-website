@@ -31,8 +31,8 @@ export default function MosaicHero() {
         style={{ filter: "grayscale(1) contrast(1.05) brightness(0.82)" }}
         aria-hidden
       >
-        {tiles.map((clip) => (
-          <MosaicTile key={clip.id} clip={clip} />
+        {tiles.map((clip, i) => (
+          <MosaicTile key={clip.id} clip={clip} index={i} />
         ))}
       </div>
 
@@ -42,7 +42,7 @@ export default function MosaicHero() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(100deg, rgba(16,15,11,.94) 28%, rgba(16,15,11,.7) 62%, rgba(16,15,11,.52) 100%)",
+            "linear-gradient(100deg, rgba(16,15,11,.95) 24%, rgba(16,15,11,.66) 58%, rgba(16,15,11,.34) 100%)",
         }}
       />
       <div className="scanlines pointer-events-none absolute inset-0 opacity-40" aria-hidden />

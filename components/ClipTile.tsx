@@ -19,10 +19,27 @@ function PlayGlyph({ size = 14 }: { size?: number }) {
   );
 }
 
-/** Compact, grayscale tile used in the hero mosaic background. */
-export function MosaicTile({ clip }: { clip: Clip }) {
+// Subtle warm-gray tones so the placeholder mosaic reads as a grid of panels
+// before real footage exists. Replaced by video frames once `src` is set.
+const TILE_TONES = [
+  "#26241d",
+  "#1c1a14",
+  "#2e2b22",
+  "#211f18",
+  "#33302600",
+];
+
+/** Compact tile used in the hero mosaic background. */
+export function MosaicTile({ clip, index = 0 }: { clip: Clip; index?: number }) {
+  const base = TILE_TONES[index % TILE_TONES.length] || "#1f1d17";
   return (
-    <div className="relative block h-full w-full overflow-hidden bg-[var(--bg-ink-elev)]">
+    <div
+      className="relative block h-full w-full overflow-hidden"
+      style={{
+        background: `radial-gradient(120% 90% at ${30 + (index % 3) * 20}% 30%, ${base}, #14130f 78%)`,
+        boxShadow: "inset 0 0 0 1px rgba(246,242,234,0.04)",
+      }}
+    >
       {clip.src ? (
         <video
           className="h-full w-full object-cover"
@@ -34,10 +51,19 @@ export function MosaicTile({ clip }: { clip: Clip }) {
           autoPlay
         />
       ) : (
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(124,58,237,0.12),transparent_70%)]" />
+        <>
+          <div
+            className="absolute inset-0 opacity-[0.5]"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(115deg, rgba(246,242,234,0.04) 0 1px, transparent 1px 9px)",
+            }}
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_78%,rgba(124,58,237,0.1),transparent_60%)]" />
+        </>
       )}
-      <span className="absolute bottom-1.5 left-2 font-mono text-[8px] uppercase tracking-[0.12em] text-[var(--fg-on-ink-2)]">
-        {clip.id.replace("-", " · ")}
+      <span className="absolute bottom-1.5 left-2 font-mono text-[8px] uppercase tracking-[0.12em] text-[var(--fg-on-ink-2)]/80">
+        {clip.location}
       </span>
     </div>
   );
