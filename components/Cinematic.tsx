@@ -1,19 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EMAIL } from "@/lib/clips";
 
 const clamp = (v: number) => Math.max(0, Math.min(1, v));
 const seg = (p: number, lo: number, hi: number) => clamp((p - lo) / (hi - lo));
 const ease = (t: number) => t * t * (3 - 2 * t);
 
+// Scene-2 footage grid. Drop matching files in /public/clips/ and they auto-play;
+// until a file exists the styled placeholder shows.
 const EGO = [
-  { id: "diamond", label: "egocentric · diamond" },
-  { id: "refinery", label: "egocentric · refinery" },
-  { id: "bottling", label: "egocentric · bottling" },
-  { id: "assembly", label: "egocentric · assembly" },
+  { id: "diamond", label: "egocentric · diamond", src: "/clips/diamond.mp4" },
+  { id: "refinery", label: "egocentric · refinery", src: "/clips/refinery.mp4" },
+  { id: "bottling", label: "egocentric · bottling", src: "/clips/bottling.mp4" },
+  { id: "assembly", label: "egocentric · assembly", src: "/clips/assembly.mp4" },
 ];
+
+// Scene-3 background. Drop /public/inheritance/robot.mp4 (or .webm) to fill it.
+const ROBOT_SRC = "/inheritance/robot.mp4";
 
 export default function Cinematic() {
   const stage = useRef<HTMLDivElement>(null);
@@ -190,7 +195,7 @@ export default function Cinematic() {
           aria-hidden
         >
           {EGO.map((e) => (
-            <FootageTile key={e.id} label={e.label} />
+            <FootageTile key={e.id} label={e.label} src={e.src} />
           ))}
         </div>
         <div
@@ -309,37 +314,76 @@ export default function Cinematic() {
   );
 }
 
-function FootageTile({ label }: { label: string }) {
+function FootageTile({ label, src }: { label: string; src?: string }) {
+  // Show the video when its file loads; otherwise fall back to the placeholder
+  // (so unset/missing files degrade gracefully with no broken media).
+  const [ok, setOk] = useState(false);
   return (
     <div className="relative h-full w-full overflow-hidden bg-[var(--bg-ink-elev)]">
-      <div className="bg-grid absolute inset-0 opacity-50" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(124,58,237,0.14),transparent_70%)]" />
-      <span className="absolute bottom-2 left-2 font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--fg-on-ink-2)]">
-        {label}
-      </span>
-      <span className="absolute right-2 top-2 font-mono text-[8px] uppercase tracking-[0.16em] text-[var(--fg4)]">
-        footage soon
-      </span>
+      {src && (
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          src={src}
+          muted
+          loop
+          playsInline
+          autoPlay
+          preload="metadata"
+          onLoadedData={() => setOk(true)}
+          onError={() => setOk(false)}
+          style={{ opacity: ok ? 1 : 0 }}
+        />
+      )}
+      {!ok && (
+        <>
+          <div className="bg-grid absolute inset-0 opacity-50" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(124,58,237,0.14),transparent_70%)]" />
+          <span className="absolute bottom-2 left-2 font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--fg-on-ink-2)]">
+            {label}
+          </span>
+          <span className="absolute right-2 top-2 font-mono text-[8px] uppercase tracking-[0.16em] text-[var(--fg4)]">
+            footage soon
+          </span>
+        </>
+      )}
     </div>
   );
 }
 
 function RobotPlaceholder() {
+  // Plays /public/inheritance/robot.mp4 once present; else shows the gradient.
+  const [ok, setOk] = useState(false);
   return (
     <div
       className="absolute inset-0"
       style={{ filter: "grayscale(1) contrast(1.05) brightness(.9)" }}
       aria-hidden
     >
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(120% 90% at 50% 35%, #1c1a14 0%, #0f0e0b 72%)",
-        }}
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        src={ROBOT_SRC}
+        muted
+        loop
+        playsInline
+        autoPlay
+        preload="metadata"
+        onLoadedData={() => setOk(true)}
+        onError={() => setOk(false)}
+        style={{ opacity: ok ? 1 : 0 }}
       />
-      <div className="bg-grid absolute inset-0 opacity-30" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(124,58,237,0.12),transparent_60%)]" />
+      {!ok && (
+        <>
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(120% 90% at 50% 35%, #1c1a14 0%, #0f0e0b 72%)",
+            }}
+          />
+          <div className="bg-grid absolute inset-0 opacity-30" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(124,58,237,0.12),transparent_60%)]" />
+        </>
+      )}
     </div>
   );
 }
