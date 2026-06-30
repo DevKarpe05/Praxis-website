@@ -13,8 +13,8 @@ const ease = (t: number) => t * t * (3 - 2 * t);
 const EGO = [
   { id: "diamond", label: "egocentric · diamond", src: "/clips/diamond.mp4" },
   { id: "refinery", label: "egocentric · refinery", src: "/clips/refinery.mp4" },
-  { id: "bottling", label: "egocentric · bottling", src: "/clips/bottling.mp4" },
   { id: "assembly", label: "egocentric · assembly", src: "/clips/assembly.mp4" },
+  { id: "residential", label: "egocentric · residential", src: "/clips/residential.mp4" },
 ];
 
 // Scene-3 background. Drop /public/inheritance/robot.mp4 (or .webm) to fill it.

@@ -5,12 +5,12 @@ Drop your egocentric footage here. Files are served from the site root, e.g.
 
 The 2×2 grid in the hero looks for these exact filenames (see `components/Cinematic.tsx` → `EGO`):
 
-| Tile             | File                       |
-| ---------------- | -------------------------- |
-| egocentric · diamond  | `public/clips/diamond.mp4`  |
-| egocentric · refinery | `public/clips/refinery.mp4` |
-| egocentric · bottling | `public/clips/bottling.mp4` |
-| egocentric · assembly | `public/clips/assembly.mp4` |
+| Tile                     | File                          |
+| ------------------------ | ----------------------------- |
+| egocentric · diamond     | `public/clips/diamond.mp4`     |
+| egocentric · refinery    | `public/clips/refinery.mp4`    |
+| egocentric · assembly    | `public/clips/assembly.mp4`    |
+| egocentric · residential | `public/clips/residential.mp4` |
 
 Notes:
 - Use **.mp4 (H.264/AAC)** for broadest browser support. `.webm` also works —
