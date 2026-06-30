@@ -20,7 +20,6 @@ export default function Cinematic() {
   const s1 = useRef<HTMLDivElement>(null);
   const s2 = useRef<HTMLDivElement>(null);
   const s3 = useRef<HTMLDivElement>(null);
-  const s3head = useRef<HTMLDivElement>(null);
   const s3end = useRef<HTMLDivElement>(null);
   const tl1 = useRef<HTMLDivElement>(null);
   const tl2 = useRef<HTMLDivElement>(null);
@@ -62,14 +61,12 @@ export default function Cinematic() {
         s2.current.style.transform = `scale(${1 + 0.05 * ease(seg(p, 0.28, 0.71))})`;
       if (s3.current)
         s3.current.style.transform = `scale(${1 + 0.06 * ease(seg(p, 0.62, 1))})`;
-      const endO = seg(p, 0.84, 0.93);
+      const endO = seg(p, 0.7, 0.82);
       if (s3end.current) {
         s3end.current.style.opacity = endO.toFixed(3);
         s3end.current.style.pointerEvents = endO > 0.5 ? "auto" : "none";
         s3end.current.inert = endO <= 0.5;
       }
-      if (s3head.current)
-        s3head.current.style.opacity = (1 - seg(p, 0.8, 0.88)).toFixed(3);
       if (tl1.current)
         tl1.current.style.transform = `scaleX(${clamp(p / 0.33)})`;
       if (tl2.current)
@@ -231,28 +228,6 @@ export default function Cinematic() {
               "linear-gradient(180deg, rgba(15,14,11,.4) 0%, transparent 24%, transparent 44%, rgba(15,14,11,.9) 100%)",
           }}
         />
-        <div className="pointer-events-none absolute inset-0">
-          <span className="absolute left-6 top-[84px] h-[18px] w-[18px] border-l border-t border-[rgba(246,242,234,0.5)]" />
-          <span className="absolute right-6 top-[84px] h-[18px] w-[18px] border-r border-t border-[rgba(246,242,234,0.5)]" />
-          <div
-            className="absolute right-8 top-[108px] text-right font-mono text-[10px] leading-[1.7] text-[var(--signal-500)]"
-            style={{ textShadow: "0 1px 3px rgba(0,0,0,.8)" }}
-          >
-            policy · π-04
-            <br />
-            nominal
-          </div>
-        </div>
-
-        <div ref={s3head} className="absolute bottom-[15%] left-[5%] right-[5%] max-w-[820px]">
-          <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--fg-on-ink-2)]">
-            the inheritor
-          </div>
-          <h1 className="m-0 font-sans text-[clamp(2rem,5.5vw,3.4rem)] font-medium leading-[0.98] tracking-[-0.035em] text-[#f6f2ea]">
-            It will learn the work from the people who do it.
-          </h1>
-        </div>
-
         <div
           ref={s3end}
           className="absolute inset-0 flex flex-col items-center justify-center text-center"
@@ -365,9 +340,6 @@ function RobotPlaceholder() {
       />
       <div className="bg-grid absolute inset-0 opacity-30" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(124,58,237,0.12),transparent_60%)]" />
-      <span className="absolute bottom-[30%] left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--fg4)]">
-        Humanoid render coming soon
-      </span>
     </div>
   );
 }
