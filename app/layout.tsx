@@ -25,9 +25,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Praxis — Every room the internet can't see",
+  title: "Praxis — Great machines will be forged by human intuition",
   description:
-    "Praxis operates inside live industrial floors across five continents — robots doing the work, and the manipulation data those floors produce flowing to the labs that need it.",
+    "Great men were forged by great teachers. Great machines will be forged by human intuition. Praxis captures how real work is done — and hands it to the machines that will inherit it.",
 };
 
 export const viewport: Viewport = {
