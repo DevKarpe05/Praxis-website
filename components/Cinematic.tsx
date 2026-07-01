@@ -13,7 +13,7 @@ const EGO = [
   { id: "diamond", label: "egocentric · diamond", src: "/clips/diamond.mp4" },
   { id: "refinery", label: "egocentric · refinery", src: "/clips/refinery.mp4" },
   { id: "assembly", label: "egocentric · assembly", src: "/clips/assembly.mp4" },
-  { id: "residential", label: "egocentric · residential", src: "/clips/residential.mp4" },
+  { id: "residential", label: "egocentric · pharmaceutical", src: "/clips/residential.mp4" },
 ];
 
 export default function Cinematic() {
