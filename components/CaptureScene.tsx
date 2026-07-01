@@ -36,7 +36,7 @@ function qRot(q: V4, v: V3): V3 {
 }
 
 /** Slide 3 — head + wrist cams + live mocap only. */
-export default function CaptureScene() {
+export default function CaptureScene({ bare = false }: { bare?: boolean }) {
   const head = useRef<HTMLVideoElement>(null);
   const wl = useRef<HTMLVideoElement>(null);
   const wr = useRef<HTMLVideoElement>(null);
@@ -252,8 +252,16 @@ export default function CaptureScene() {
   }, []);
 
   return (
-    <div className="absolute inset-0 flex flex-col pt-[72px] pb-[88px] pointer-events-auto">
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-2 px-4 sm:px-8 lg:grid-cols-[1.05fr_0.95fr]">
+    <div
+      className={`absolute inset-0 flex flex-col pointer-events-auto ${
+        bare ? "py-3" : "pt-[72px] pb-[88px]"
+      }`}
+    >
+      <div
+        className={`grid min-h-0 flex-1 grid-cols-1 gap-2 lg:grid-cols-[1.05fr_0.95fr] ${
+          bare ? "px-3" : "px-4 sm:px-8"
+        }`}
+      >
         <div className="flex min-h-0 flex-col gap-2">
           <div className="relative min-h-0 flex-1 overflow-hidden rounded-[2px] border border-[rgba(246,242,234,0.12)]">
             <video
