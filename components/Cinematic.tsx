@@ -278,9 +278,23 @@ export default function Cinematic() {
         ))}
       </div>
 
+      <div className="absolute right-10 top-[26px] z-[8] flex items-center gap-2 max-sm:right-5">
+        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#9b9486]">
+          Backed by
+        </span>
+        <Image
+          src="/yc-logo.png"
+          alt="Y Combinator"
+          width={948}
+          height={198}
+          priority
+          className="h-[18px] w-auto"
+        />
+      </div>
+
       <div
         ref={hint}
-        className="absolute right-10 top-[34px] z-[8] flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-[#9b9486]"
+        className="absolute right-10 top-[58px] z-[8] flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-[#9b9486] max-sm:right-5"
       >
         <span>scroll to scrub</span>
         <span className="cue-bob inline-block" aria-hidden>
@@ -290,7 +304,7 @@ export default function Cinematic() {
       <button
         ref={replay}
         type="button"
-        className="absolute right-10 top-[34px] z-[8] cursor-pointer font-mono text-[11px] uppercase tracking-[0.14em] text-[#9b9486] opacity-0 transition-opacity"
+        className="absolute right-10 top-[58px] z-[8] cursor-pointer font-mono text-[11px] uppercase tracking-[0.14em] text-[#9b9486] opacity-0 transition-opacity max-sm:right-5"
       >
         ↻ replay
       </button>
