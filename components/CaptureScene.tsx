@@ -299,27 +299,17 @@ export default function CaptureScene() {
           </div>
         </div>
 
-        <div className="flex min-h-0 flex-col gap-2">
-          <div className="relative min-h-[180px] flex-1 overflow-hidden rounded-[2px] border border-[rgba(246,242,234,0.12)] bg-[#0b0a08] lg:min-h-0">
-            <canvas
-              ref={canvas}
-              className="h-full w-full cursor-grab active:cursor-grabbing"
-            />
-            <span className="pointer-events-none absolute left-2 top-2 font-mono text-[8px] uppercase tracking-[0.12em] text-[var(--fg-on-ink-2)]">
-              mocap · live reconstruction
-            </span>
-            <span className="pointer-events-none absolute right-2 top-2 font-mono text-[8px] uppercase tracking-[0.1em] text-[var(--fg4)]">
-              drag to orbit
-            </span>
-          </div>
-          <div className="pointer-events-none shrink-0 text-center">
-            <div className="font-sans text-[clamp(2rem,3.4vw,2.9rem)] font-medium leading-none tracking-[-0.02em] text-[#f6f2ea]">
-              100,000 hours
-            </div>
-            <div className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--fg-on-ink-2)]">
-              of multimodal capture
-            </div>
-          </div>
+        <div className="relative min-h-[180px] overflow-hidden rounded-[2px] border border-[rgba(246,242,234,0.12)] bg-[#0b0a08] lg:min-h-0">
+          <canvas
+            ref={canvas}
+            className="h-full w-full cursor-grab active:cursor-grabbing"
+          />
+          <span className="pointer-events-none absolute left-2 top-2 font-mono text-[8px] uppercase tracking-[0.12em] text-[var(--fg-on-ink-2)]">
+            mocap · live reconstruction
+          </span>
+          <span className="pointer-events-none absolute right-2 top-2 font-mono text-[8px] uppercase tracking-[0.1em] text-[var(--fg4)]">
+            drag to orbit
+          </span>
         </div>
       </div>
     </div>

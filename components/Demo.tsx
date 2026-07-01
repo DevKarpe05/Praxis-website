@@ -60,18 +60,6 @@ interface PoseData {
   R_fj: V3[][];
 }
 
-// Whole-dataset task mix (from DataFormat.md — 305 hr delivery).
-const TASK_MIX = [
-  { label: "tidy bed", pct: 33 },
-  { label: "tidy sofa", pct: 18 },
-  { label: "tidy pillowcases", pct: 6 },
-  { label: "tidy table", pct: 3 },
-  { label: "tidy clothes", pct: 2 },
-  { label: "prepare meal", pct: 1 },
-  { label: "wash clothes", pct: 1 },
-  { label: "+ 17 more categories", pct: 36 },
-];
-
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const lerp3 = (a: V3, b: V3, t: number): V3 => [
   lerp(a[0], b[0], t),
@@ -674,36 +662,11 @@ export default function Demo() {
       {/* scale */}
       <section className="mx-auto max-w-[1240px] px-6 py-6">
         <SectionTitle n="03" title="This is one of thousands" />
-        <div className="grid grid-cols-1 gap-3 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="grid grid-cols-2 gap-3">
-            <Stat big={`${m?.dataset.hours ?? "—"}`} unit="hours" sub="in this delivery alone" />
-            <Stat big={`${m?.dataset.sessions ?? "—"}`} unit="sessions" sub="6 files each · 100% complete" />
-            <Stat big={`${m?.dataset.categories ?? "—"}`} unit="task types" sub="standardized household work" />
-            <Stat big={`${m?.rateHz ?? 30} Hz`} unit="every stream" sub="video + depth + mocap" />
-          </div>
-          <div className="rounded-[3px] border border-[var(--rule-1)] bg-[var(--bg-ink-elev)] p-4">
-            <div className="mb-3 font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--fg4)]">
-              task mix · by duration
-            </div>
-            <div className="flex flex-col gap-2.5">
-              {TASK_MIX.map((t) => (
-                <div key={t.label} className="flex items-center gap-3">
-                  <span className="w-[140px] shrink-0 font-mono text-[11px] text-[var(--fg2)]">
-                    {t.label}
-                  </span>
-                  <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#0b0a08]">
-                    <div
-                      className="h-full bg-[var(--accent-500)]"
-                      style={{ width: `${(t.pct / 33) * 100}%`, opacity: 0.55 + t.pct / 80 }}
-                    />
-                  </div>
-                  <span className="w-9 shrink-0 text-right font-mono text-[11px] text-[var(--fg3)]">
-                    {t.pct}%
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <Stat big="100,024" unit="hours" sub="in this delivery alone" />
+          <Stat big="797,940" unit="sessions" sub="6 files each · 100% complete" />
+          <Stat big="124" unit="task types" sub="standardized household work" />
+          <Stat big={`${m?.rateHz ?? 30} Hz`} unit="every stream" sub="video + depth + mocap" />
         </div>
       </section>
 
